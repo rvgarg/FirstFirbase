@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btn;
     private EditText emailv,passord;
-private String email,password;
+    private String email,password;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ private String email,password;
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         btn=findViewById(R.id.button);
-        emailv=findViewById(R.id.textView);
+        emailv=findViewById(R.id.text1);
         passord=findViewById(R.id.password);
         btn.setOnClickListener(v->{
         email=emailv.getText().toString();
