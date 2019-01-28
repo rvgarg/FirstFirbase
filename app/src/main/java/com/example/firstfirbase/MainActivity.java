@@ -33,23 +33,20 @@ public class MainActivity extends AppCompatActivity {
         email=emailv.getText().toString();
         password=passord.getText().toString();
             mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TODO", "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("TODO", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(MainActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+                    .addOnCompleteListener(MainActivity.this, task -> {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("TODO", "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("TODO", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
 //                                updateUI(null);
-                            }
-
-                            // ...
                         }
+
+                        // ...
                     });
         });
     }
@@ -58,14 +55,15 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-
+        if (currentUser != null) {
+            updateUI(currentUser);
+        }
     }
     public void updateUI(FirebaseUser user){
-        if (user != null) {
+
             Intent intent=new Intent(MainActivity.this,confirm.class);
             startActivity(intent);
         }
-    }
+
 
 }
