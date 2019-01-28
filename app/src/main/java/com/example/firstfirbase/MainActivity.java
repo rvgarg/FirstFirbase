@@ -45,7 +45,7 @@ private String email,password;
                                 // If sign in fails, display a message to the user.
                                 Log.w("TODO", "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(MainActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
-                                updateUI(null);
+//                                updateUI(null);
                             }
 
                             // ...
@@ -62,8 +62,10 @@ private String email,password;
 
     }
     public void updateUI(FirebaseUser user){
-        Intent intent=new Intent(MainActivity.this,confirm.class);
-        startActivity(intent);
+        if (user != null) {
+            Intent intent=new Intent(MainActivity.this,confirm.class);
+            startActivity(intent);
+        }
     }
 
 }
